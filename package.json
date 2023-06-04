@@ -1,0 +1,10 @@
+{
+  "name": "howyoudoin",
+  "version": "1.0.0",
+  "author": "ha-da-ra <gold85600@gmail.com>",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+  ,"private": true
+}
