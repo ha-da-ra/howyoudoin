@@ -1,7 +1,7 @@
 import { Box, Container, Grid } from '@mui/material'
 import { useState } from 'react'
 import { HydAppBar } from './HdyAppBar'
-import { LineChart } from './LineChart'
+import { MoodChart as MoodChart } from './MoodChart'
 
 function App() {
 
@@ -9,7 +9,7 @@ function App() {
     <Box >
       <HydAppBar />
       <Container maxWidth="lg" sx={{ height: "80vh", p:2 }}>
-        <LineChart />
+        <MoodChart />
       </Container>
     </Box>
   )
