@@ -4,6 +4,7 @@
   "main": "main.ts",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "^4.15.0",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "morgan": "^1.10.0"
@@ -13,6 +14,7 @@
     "@types/morgan": "^1.9.4",
     "@types/node": "^20.2.5",
     "nodemon": "^2.0.22",
+    "prisma": "^4.15.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.3"
   },
