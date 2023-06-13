@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 const clientDir = path.join(__dirname, "client");
 
 //ROUTES
-app.use(`/`, express.static(clientDir));
+app.use(`/view/`, express.static(clientDir));
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
