@@ -41,13 +41,13 @@ jobs:
           
       - name: copy client dir
         run: |
-           cp -a -r frontend/dist backend/dist/client
+           cp -a -r frontend/dist backend/src/client
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: ./backend/dist
+          path: ./backend
 
   deploy:
     runs-on: ubuntu-latest
