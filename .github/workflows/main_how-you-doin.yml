@@ -21,17 +21,33 @@ jobs:
         with:
           node-version: '16.x'
 
-      - name: npm install, build, and test
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
+          dir: 'backend'
+          
+      - name: Build production backend
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build:prod # will run `yarn build:prod` command
+          dir: 'backend'
+          
+     - name: Build production frontend
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build:prod # will run `yarn build:prod` command
+          dir: 'frontend'
+          
+      - name: copy client dir
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+           cp -a -r frontend/dist backend/dist/client
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: .
+          path: ./backend/dist
 
   deploy:
     runs-on: ubuntu-latest
