@@ -33,7 +33,7 @@ jobs:
           cmd: build:prod # will run `yarn build:prod` command
           dir: 'backend'
           
-     - name: Build production frontend
+      - name: Build production frontend
         uses: borales/actions-yarn@v4
         with:
           cmd: build:prod # will run `yarn build:prod` command
