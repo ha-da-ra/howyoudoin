@@ -30,13 +30,13 @@ jobs:
       - name: Build production backend
         uses: borales/actions-yarn@v4
         with:
-          cmd: build:prod # will run `yarn build:prod` command
+          cmd: build # will run `yarn build` command
           dir: 'backend'
           
       - name: Build production frontend
         uses: borales/actions-yarn@v4
         with:
-          cmd: build:prod # will run `yarn build:prod` command
+          cmd: build # will run `yarn build` command
           dir: 'frontend'
           
       - name: copy client dir
