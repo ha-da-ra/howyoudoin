@@ -3,12 +3,10 @@ import bodyParser from "body-parser";
 import logger from "morgan";
 import path from "path";
 import { PORT } from "./environment";
-import { test } from "./database";
 
 
 
 const app: Application = express();
-test();
 
 // Logging + Encoding
 app.use(logger("dev"));
