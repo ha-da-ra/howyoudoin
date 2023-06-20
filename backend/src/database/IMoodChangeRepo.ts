@@ -3,6 +3,6 @@ import { MoodChange } from "@prisma/client";
 
 
 export interface IMoodChangeRepo {
-    add(moodId: string):Promise<boolean>;
+    add(newMood : MoodChange):Promise<MoodChange>;
     get(from: Date, to: Date):Promise<MoodChange[]>;
 }

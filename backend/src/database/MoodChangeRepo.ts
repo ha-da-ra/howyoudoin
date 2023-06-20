@@ -7,8 +7,13 @@ import { prisma } from "./PrismaClient";
 export class MoodChangeRepo implements IMoodChangeRepo {
 
 
-    add(moodId: string): Promise<boolean> {
-        throw new Error("Method not implemented.");
+    async add(newMood: MoodChange): Promise<MoodChange> {
+        const result = await prisma.moodChange.create({
+            data: {
+              ...newMood
+            }
+          });
+        return result;
     }
     
     get(from: Date, to: Date): Promise<MoodChange[]> {
@@ -17,11 +22,11 @@ export class MoodChangeRepo implements IMoodChangeRepo {
                 AND: [
                     {
                         changedAt: {
-                            lt: to,
+                            lte: to,
                         }
                     }, {
                         changedAt: {
-                            gt: from,
+                            gte: from,
                         }
                     }],
             },
