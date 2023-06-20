@@ -4,6 +4,7 @@ import logger from "morgan";
 import path from "path";
 import { PORT } from "./environment";
 import { MoodChangeRepo } from "./database/MoodChangeRepo";
+import { moodRouter } from "./mood/mood-endpoint";
 
 
 
@@ -21,6 +22,8 @@ const clientDir = path.join(__dirname, "client");
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+
+
 app.get('/test/', async (req, res) => {
   const moodRepo = new MoodChangeRepo();
   const result = await moodRepo.get(new Date(1999,1), new Date(2023,12));
@@ -28,6 +31,8 @@ app.get('/test/', async (req, res) => {
 })
 
 app.use(`/view/`, express.static(clientDir));
+app.use(`/moods`, moodRouter);
+
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });

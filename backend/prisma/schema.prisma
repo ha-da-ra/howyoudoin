@@ -11,6 +11,7 @@ datasource db {
 }
 
 model MoodChange {
-  value Int @id
+  Id String @id @default(cuid())
+  value Int
   changedAt DateTime 
 }
