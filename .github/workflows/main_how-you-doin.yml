@@ -21,11 +21,17 @@ jobs:
         with:
           node-version: '16.x'
 
-      - name: Run install
+      - name: Run install backend
         uses: borales/actions-yarn@v4
         with:
           cmd: install # will run `yarn install` command
           dir: 'backend'
+          
+      - name: Run install frontend
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # will run `yarn install` command
+          dir: 'frontend'
           
       - name: Build production backend
         uses: borales/actions-yarn@v4
@@ -39,10 +45,9 @@ jobs:
           cmd: build # will run `yarn build` command
           dir: 'frontend'
           
-      - name: copy client dir
+      - name: Copy client dir and .env
         run: |
-           cp -a -r frontend/dist backend/src/client
-           rsync node_modules backend/node_modules
+           cp -a -r frontend/dist backend/dist/client
            cp backend/env.template backend/.env
 
       - name: Upload artifact for deployment job
