@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import logger from "morgan";
 import path from "path";
 import { PORT } from "./environment";
+import { MoodChangeRepo } from "./database/MoodChangeRepo";
 
 
 
@@ -20,8 +21,10 @@ const clientDir = path.join(__dirname, "client");
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
-app.get('/test/', (req, res) => {
-  res.send('Hello World!')
+app.get('/test/', async (req, res) => {
+  const moodRepo = new MoodChangeRepo();
+  const result = await moodRepo.get(new Date(1999,1), new Date(2023,12));
+  res.status(200).send(result);
 })
 
 app.use(`/view/`, express.static(clientDir));
