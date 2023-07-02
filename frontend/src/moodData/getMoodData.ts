@@ -1,9 +1,16 @@
 import { fetchFromBackend } from "../functions/fetchFromBackend";
 import { IMoodChange, Mood } from "./IMoodChange";
 
-export async function getMoodData(): Promise<IMoodChange[]> {
+export async function getMoodData(year: number, month: number): Promise<IMoodChange[]> {
     //return getStaticTestData();
-    return getMoodDataFromBackend(new Date("2022-04-11T22:20"),new Date("2024-04-11T22:20"));
+    const[from, to] = getFromAndToFor(year, month);
+    return getMoodDataFromBackend(from,to);
+}
+
+function getFromAndToFor(year: number, month: number){
+    var firstDay = new Date(year, month, 1);
+    var lastDay = new Date(year, month + 1, 0);
+    return [firstDay, lastDay];
 }
 
 async function getStaticTestData(): Promise<IMoodChange[]> {

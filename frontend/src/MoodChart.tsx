@@ -13,7 +13,7 @@ import {
 } from 'chart.js';
 import { _DeepPartialObject } from 'chart.js/dist/types/utils';
 import "chartjs-adapter-date-fns";
-import {de} from 'date-fns/locale';
+import { de } from 'date-fns/locale';
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { getMoodColor } from './moodData/getMoodColor';
@@ -30,7 +30,6 @@ ChartJS.register(
 
 const options: ChartOptions<"line"> =
 {
-
   responsive: true,
   maintainAspectRatio: false,
   scales: {
@@ -56,35 +55,46 @@ const options: ChartOptions<"line"> =
   }
 };
 
-export function MoodChart() {
-  const [chartData, setChartData] = useState<ChartData<"line", (number | Point | null)[], unknown>>();
+export interface MoodChartProps {
+  year:number,
+  month: number
+}
 
+
+export function MoodChart(props: MoodChartProps) {
+  const {year, month} = props;
+  const [chartData, setChartData] = useState<ChartData<"line", (number | Point | null)[], unknown>>();
   useEffect(() => {
-    // declare the data fetching function
     const fetchData = async () => {
-      let moodData = await getMoodData();
-      const moodColors = moodData.map(mood => getMoodColor(mood.value));
-      const data: ChartData<"line", (number | Point | null)[], unknown> = {
-        labels: moodData.map((m) => m.changedAt),
-        datasets: [
-          {
-            label: 'Dataset 1',
-            data: moodData.map((m) => m.value),
-            borderColor: "rgb(199, 199, 199)",
-            pointBorderColor: moodColors,
-            pointBackgroundColor: moodColors,
-            pointStyle: 'circle',
-            pointRadius: 10
-          }
-        ],
-      };
-      setChartData(data);
+      await loadChartData(year, month, setChartData);
     }
 
     fetchData().catch(console.error);
-  }, [])
+  }, [month, year]);
   if (!chartData) {
     return < CircularProgress />;
   }
   return <Line options={options} data={chartData} />;
 }
+
+
+
+async function loadChartData(year: number, month: number, setChartData: (data:ChartData<"line", (number | Point | null)[], unknown>) => void) {
+  let moodData = await getMoodData(year, month);
+  const moodColors = moodData.map(mood => getMoodColor(mood.value));
+  const data: ChartData<"line", (number | Point | null)[], unknown> = {
+    labels: moodData.map((m) => m.changedAt),
+    datasets: [
+      {
+        data: moodData.map((m) => m.value),
+        borderColor: "rgb(199, 199, 199)",
+        pointBorderColor: moodColors,
+        pointBackgroundColor: moodColors,
+        pointStyle: 'circle',
+        pointRadius: 10
+      }
+    ],
+  };
+  setChartData(data);
+}
+
