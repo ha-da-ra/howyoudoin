@@ -18,6 +18,11 @@ export class MoodChangeRepo implements IMoodChangeRepo {
     
     get(from: Date, to: Date): Promise<MoodChange[]> {
         return prisma.moodChange.findMany({
+            orderBy: [
+                {
+                  changedAt: 'desc',
+                }
+              ],
             where: {
                 AND: [
                     {

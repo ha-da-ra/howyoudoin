@@ -62,7 +62,7 @@ export function MoodChart() {
   useEffect(() => {
     // declare the data fetching function
     const fetchData = async () => {
-      const moodData = await getMoodData();
+      let moodData = await getMoodData();
       const moodColors = moodData.map(mood => getMoodColor(mood.value));
       const data: ChartData<"line", (number | Point | null)[], unknown> = {
         labels: moodData.map((m) => m.changedAt),
