@@ -24,7 +24,6 @@ function App() {
       <HydAppBar />
       <Container maxWidth="lg" sx={{ height: "80vh", p: 2 }}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Container>
             <DesktopDatePicker  disableFuture label={'Month'} views={['month', 'year']} 
             onYearChange={changeYear} 
             onMonthChange={changeMonth}
@@ -34,7 +33,6 @@ function App() {
                 disabled: true
               },
             }} />
-          </Container>
         </LocalizationProvider>
         <MoodChart year={year} month={month} />
       </Container>

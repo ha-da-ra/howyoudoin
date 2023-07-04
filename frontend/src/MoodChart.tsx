@@ -1,4 +1,4 @@
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -64,23 +64,33 @@ export interface MoodChartProps {
 export function MoodChart(props: MoodChartProps) {
   const {year, month} = props;
   const [chartData, setChartData] = useState<ChartData<"line", (number | Point | null)[], unknown>>();
+  const [dataHasLoaded, setDataHasLoaded] = useState<boolean>(false);
   useEffect(() => {
     const fetchData = async () => {
-      await loadChartData(year, month, setChartData);
+      setChartData(undefined);
+      const chartData = await loadChartData(year, month);
+      if(chartData){
+        setChartData(chartData);
+      }
+      setDataHasLoaded(true);
     }
 
     fetchData().catch(console.error);
   }, [month, year]);
-  if (!chartData) {
+  if (!dataHasLoaded) {
     return < CircularProgress />;
+  }
+  else if (!chartData){
+    return <Typography variant="h2" sx={{color:'gray', mt:15}}>No data</Typography>
   }
   return <Line options={options} data={chartData} />;
 }
 
 
 
-async function loadChartData(year: number, month: number, setChartData: (data:ChartData<"line", (number | Point | null)[], unknown>) => void) {
+async function loadChartData(year: number, month: number) {
   let moodData = await getMoodData(year, month);
+  if (moodData.length < 1) return undefined;
   const moodColors = moodData.map(mood => getMoodColor(mood.value));
   const data: ChartData<"line", (number | Point | null)[], unknown> = {
     labels: moodData.map((m) => m.changedAt),
@@ -93,8 +103,8 @@ async function loadChartData(year: number, month: number, setChartData: (data:Ch
         pointStyle: 'circle',
         pointRadius: 10
       }
-    ],
+    ]
   };
-  setChartData(data);
+  return data;
 }
 
