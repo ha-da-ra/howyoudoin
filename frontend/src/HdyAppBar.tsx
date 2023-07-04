@@ -2,7 +2,7 @@
 import { AppBar,  Icon, IconButton, Toolbar, Typography } from '@mui/material'
 
 export function HydAppBar (){
-    return ( <AppBar position="static">
+    return ( <AppBar position="static" >
     <Toolbar>
       <IconButton
         size="large"
@@ -11,7 +11,7 @@ export function HydAppBar (){
       >
         <Icon>menu</Icon>
       </IconButton>
-      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+      <Typography variant="h6" component="div">
         How you doin?
       </Typography>
     </Toolbar>
