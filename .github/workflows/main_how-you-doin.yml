@@ -32,12 +32,7 @@ jobs:
         with:
           cmd: install # will run `yarn install` command
           dir: 'frontend'
-          
-      - name: Build production backend
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: build # will run `yarn build` command
-          dir: 'backend'
+        
           
       - name: Build production frontend
         uses: borales/actions-yarn@v4

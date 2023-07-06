@@ -23,6 +23,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "nodemon ./src/main.ts",
-    "start": "node ./dist/main.js"
+    "start": "node ./src/main.js",
+    "start-dist": "node ./dist/main.js"
   }
 }
