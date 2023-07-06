@@ -50,6 +50,10 @@ jobs:
         run: |
            cp -a -r frontend/dist backend/src/client
            cp backend/env.template backend/.env
+      
+      - name: Create db from migrations
+        run: |
+           npx prisma migrate deploy
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
