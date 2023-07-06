@@ -42,7 +42,7 @@ jobs:
           
       - name: Copy client dir and .env
         run: |
-           cp -a -r frontend/dist backend/dist/client
+           cp -a -r frontend/dist backend/src/client
            cp backend/env.template backend/.env
 
       - name: Upload artifact for deployment job
