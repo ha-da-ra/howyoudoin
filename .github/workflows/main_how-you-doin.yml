@@ -39,21 +39,11 @@ jobs:
         with:
           cmd: build # will run `yarn build` command
           dir: 'frontend'
-
-      - name: Build production backend
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: build # will run `yarn build` command
-          dir: 'backend'
           
       - name: Copy client dir and .env
         run: |
            cp -a -r frontend/dist backend/src/client
            cp backend/env.template backend/.env
-      
-      - name: Create db from migrations
-        run: |
-           npx prisma migrate deploy
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
