@@ -30,6 +30,7 @@ export async function getMoods(req: Request, res: Response) {
 
 export async function addMood(req: Request, res: Response) {
     const newMood = req.body;
+    console.log(newMood);
     newMood.changedAt = moment(newMood.changedAt);
     console.log(newMood);
     const moodRepo = getMoodRepo();
